@@ -1,0 +1,53 @@
+<!-- templates/nav_app/index.html -->
+{% extends "nav/base.html" %}
+
+{% block content %}
+<div class="categories">
+    {% for category in categories %}
+    <div class="category-card {% if forloop.first %}active{% endif %}">
+        <div class="category-icon">
+            {% if category.icon %}
+                <img src="{{ category.icon.url }}" alt="{{ category.name }}">
+            {% else %}
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='%234361ee'%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15h-2v-6h2v6zm3 0h-2V7h2v10z'/%3E%3C/svg%3E" alt="默认图标">
+            {% endif %}
+        </div>
+        <div class="category-name">{{ category.name }}</div>
+    </div>
+    {% endfor %}
+</div>
+
+{% for category in categories %}
+<div class="links-container">
+    <div class="section-header">
+        <div class="section-icon">
+           <!-- {% if category.icon %}
+                <img src="{{ category.icon.url }}" alt="{{ category.name }}">
+            {% else %}
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='%234361ee'%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15h-2v-6h2v6zm3 0h-2V7h2v10z'/%3E%3C/svg%3E" alt="默认图标">
+            {% endif %}
+            -->
+        </div>
+        <h2 class="section-title">{{ category.name }}</h2>
+    </div>
+
+    <div class="links-grid">
+        {% for link in category.link_set.all %}
+        <a href="{{ link.url }}" target="_blank" class="link-card">
+            <div class="link-icon">
+                {% if link.icon %}
+                    <img src="media/{{ link.icon }}" alt="{{ link.title }}">
+                {% else %}
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='%234361ee'%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15h-2v-6h2v6zm3 0h-2V7h2v10z'/%3E%3C/svg%3E" alt="默认图标">
+                {% endif %}
+            </div>
+            <div class="link-info">
+                <div class="link-title">{{ link.title }}</div>
+                <div class="link-desc">{{ link.description|truncatechars:60 }}</div>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+</div>
+{% endfor %}
+{% endblock %}

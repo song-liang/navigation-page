@@ -1,0 +1,17 @@
+version: '3.8'
+services:
+  navigation-page:
+    image: navigation-page:latest
+    restart: always
+    container_name: navigation-page
+    environment:
+        - TZ=Asia/Shanghai
+    volumes:
+        - /usr/share/zoneinfo/Asia/Shanghai:/etc/localtime:ro
+        - ./db.sqlite3:/app/db.sqlite3
+        - ./logs:/app/logs
+    #network_mode: host
+    ports:
+      - "0.0.0.0:8080:8080"
+      #- "0.0.0.0:9191:9191"
+
